@@ -10,7 +10,6 @@ import numpy as np
 import pandas as pd
 import time
 import re
-
 def scrap_the_hindu():
     url= 'https://www.thehindu.com/'
 
@@ -57,9 +56,8 @@ def scrap_the_hindu():
             news.append(' '.join(paragraph))
 
     df= pd.DataFrame({'links':links,'title':titles,'news':news})
-    df['title']= df['title'].str.replace(r'[0-9]{1,2}(mins|hrs)','')
-    df['newspaper']='thehindu'
     return df
+
 
 def scrap_theasianage():
     url='http://www.asianage.com/'

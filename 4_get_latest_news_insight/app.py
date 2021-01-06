@@ -15,10 +15,10 @@ import pickle
 import pandas as pd
 import nltk
 import os
-from nltk.corpus import stopwords
-from nltk.tokenize import punkt
-from nltk.corpus.reader import wordnet
-from nltk.stem import WordNetLemmatizer
+# from nltk.corpus import stopwords
+# from nltk.tokenize import punkt
+# from nltk.corpus.reader import wordnet
+# from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 import requests
 from bs4 import BeautifulSoup
@@ -125,7 +125,6 @@ app.layout = html.Div(style={'color':'black','backgroundColor':colors['backgroun
         style={'width': '95%', 'display': 'inline-block', 'float': 'left'}),
         
 
-        
     # Graph1
     html.Div([
         dcc.Graph(id='graph1',figure= {})],
