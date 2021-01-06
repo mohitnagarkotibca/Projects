@@ -39,6 +39,8 @@ def scrap_the_hindu():
     news=[]
     for i in range(len(all_stories)):
         for j in range(len(all_stories[i])):
+            if (('in' in link) and  ('pictures' in link)):
+                continue
             link= all_stories[i].find_all('a')[j]['href']
             links.append(link)
             titles.append(all_stories[i].find_all('a')[j].text)
@@ -141,7 +143,6 @@ def scrap_theguardian():
                 paragraph = x[p].get_text()
                 list_paragraphs.append(paragraph)
             final_article = " ".join(list_paragraphs)
-
         news_contents.append(final_article)
         
     df= pd.DataFrame({'links':list_links,'title':list_titles,'news':news_contents})
@@ -167,6 +168,8 @@ def scrap_themint():
         link=  headline.find('div',{'class':'headlineSec'}).find('h2').a['href']
         base='https://www.livemint.com'
         url= base +link
+        if 'videos' in url:
+            continue
         r= requests.get(url)
         article_content= r.content
         soup= BeautifulSoup(article_content,'html.parser')

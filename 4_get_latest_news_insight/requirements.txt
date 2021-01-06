@@ -1,46 +1,20 @@
-beautifulsoup4==4.9.1
-bokeh==2.1.1
-bs4==0.0.1
 dash==1.14.0
 dash-bootstrap-components==0.10.7
 dash-core-components==1.10.2
 dash-html-components==1.0.3
 dash-renderer==1.6.0
 dash-table==4.9.0
-dask==2.19.0
-Django==3.1.1
-django-bootstrap4==2.2.0
-django-plotly-dash==1.4.2
-Flask==1.1.2
-Flask-Compress==1.5.0
-h5py==2.10.0
-HeapDict==1.0.1
-html5lib==1.1
-htmlmin==0.1.12
-ipykernel==5.3.0
-ipython==7.16.1
-ipython-genutils==0.2.0
-json5==0.9.5
-Markdown==3.2.2
-matplotlib==3.2.2
-nltk==3.5
 numpy==1.18.5
-numpydoc==1.0.0
 pandas==1.0.5
 plotly==4.9.0
 requests==2.24.0
 scikit-learn==0.23.1
 scipy==1.4.1
 seaborn==0.11.0
-selenium==3.141.0
 spacy==2.2.1
 tqdm==4.47.0
-tweepy==3.9.0
-twitterscraper==1.6.1
-typing-extensions==3.7.4.2
 urllib3==1.24.3
 gunicorn == 20.0.4
 wordcloud == 1.6.0
 spacy == 2.2.1
 https://github.com/explosion/spacy-models/releases/download/en_core_web_md-2.0.0/en_core_web_md-2.0.0.tar.gz#egg=en_core_web_md
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.0.0/en_core_web_sm-2.0.0.tar.gz#egg=en_core_web_sm
