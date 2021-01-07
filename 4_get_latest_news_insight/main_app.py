@@ -9,11 +9,6 @@ import pickle
 import pandas as pd
 import nltk
 import os
-from nltk.corpus import stopwords
-from nltk.tokenize import punkt
-from nltk.corpus.reader import wordnet
-from nltk.stem import WordNetLemmatizer
-from sklearn.feature_extraction.text import TfidfVectorizer
 import requests
 from bs4 import BeautifulSoup
 import numpy as np
@@ -38,7 +33,6 @@ import numpy as np
 import pandas as pd
 import time
 import re
-import yake
 from Scrappers import scrap_the_hindu,scrap_theasianage,scrap_theguardian,scrap_themint
 
 nlp=spacy.load('en_core_web_md')
@@ -49,10 +43,8 @@ tf= pd.read_pickle('Models/tfidf.pickle')
 
 
 
-# df3= scrap_theguardian()
-# df1= scrap_the_hindu()
-# df2= scrap_theasianage()
-# df4= scrap_themint()
+
+
 df3= pd.read_csv('data/theguardian.csv')
 df3['newspaper']= 'theguardian'
 df1= pd.read_csv('data/thehindu.csv')
@@ -61,6 +53,7 @@ df2= pd.read_csv('data/theasianage.csv')
 df2['newspaper']= 'theasianage'
 df4= pd.read_csv('data/themint.csv')
 df4['newspaper']= 'themint'
+
 df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
 def clean_df(df):
     def clean(df):
@@ -96,16 +89,6 @@ def clean_df(df):
     df4_feature= convert_to_lower(df3_feature)
     return df4_feature
 df4_cleaned= clean_df(df)
-#-----------------------------------------
-dic={}
-for line in df4_cleaned['news_punctuation_cleaned']:
-    for word in line.split():
-        if word in dic.keys():
-            dic[word]= dic[word]+1
-        else:
-            dic[word]= 1
-
-#-----------------------------------------
 
 app= dash.Dash(__name__)
 markdown_text1 = '''
@@ -127,6 +110,12 @@ def model_predict(df_specific_newspapers):
     return df_specific_newspapers
 
 #app's Layout
+#button will get clicked and it will scrap
+# df3= scrap_theguardian()
+# df1= scrap_the_hindu()
+# df2= scrap_theasianage()
+# df4= scrap_themint()
+# df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
 app.layout= dbc.Container([
     html.Br(),
     dbc.Row(
@@ -154,16 +143,22 @@ app.layout= dbc.Container([
                 {'label': 'the guardian', 'value': 'theguardian'},
                 {'label': 'The Asian Age', 'value': 'theasianage'},
                 {'label': 'The Mint', 'value': 'themint'}
-                
             ],
             id='Dropdown_news',
-            className= 'dropdown-header',
             placeholder= 'Select News Papers',
             value=['thehindu','theguardian','theasianage','themint'],
             multi=True,
-            style={'backgroud-color':'#c5e0f0','height': '30px', 'width': '500px'})
-        ],width={'order':1,'offset':3})
+            style={'backgroud-color':'#c5e0f0','width': '600px','offset':3})
+                                               
         ]),
+        dbc.Col([
+            
+                dbc.Button("Scrap latest News", outline=True, color="primary", className="mr-1")
+           
+            
+            ])
+        ]
+        ),
     html.Br(),
     dbc.Row([
         dbc.Col([
@@ -205,6 +200,7 @@ app.layout= dbc.Container([
               
     ],style={'background-color':'#042b41','height': '100%', 'width': '90%'},className='text-monospace',fluid=True
     )
+
 
 @app.callback(
     Output(component_id='graph1',component_property= 'figure'),
