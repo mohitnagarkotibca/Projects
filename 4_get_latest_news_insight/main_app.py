@@ -4,7 +4,6 @@ Created on Wed Jan  6 08:30:57 2021
 
 @author: HP
 """
-
 import pickle
 import pandas as pd
 import nltk
@@ -27,12 +26,8 @@ import numpy as np
 import dash_bootstrap_components as dbc
 from wordcloud import WordCloud
 import base64
-import requests
-from bs4 import BeautifulSoup
 import numpy as np
-import pandas as pd
 import time
-import re
 from Scrappers import scrap_the_hindu,scrap_theasianage,scrap_theguardian,scrap_themint
 
 nlp=spacy.load('en_core_web_md')
@@ -42,16 +37,25 @@ model= pd.read_pickle('Models/best_rfc.pickle')
 tf= pd.read_pickle('Models/tfidf.pickle')
 
 
+df3= scrap_theguardian()
+# df3.to_csv('data/theguardian.csv')
+df1= scrap_the_hindu()
+# df1.to_csv('data/thehindu.csv')
+df2= scrap_theasianage()
+# df2.to_csv('data/theasianage.csv')
+df4= scrap_themint()
+# df4.to_csv('data/themint.csv')
+df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
 
 
 
-df3= pd.read_csv('data/theguardian.csv')
+# df3= pd.read_csv('data/theguardian.csv')
 df3['newspaper']= 'theguardian'
-df1= pd.read_csv('data/thehindu.csv')
+# df1= pd.read_csv('data/thehindu.csv')
 df1['newspaper']= 'thehindu'
-df2= pd.read_csv('data/theasianage.csv')
+# df2= pd.read_csv('data/theasianage.csv')
 df2['newspaper']= 'theasianage'
-df4= pd.read_csv('data/themint.csv')
+# df4= pd.read_csv('data/themint.csv')
 df4['newspaper']= 'themint'
 
 df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
@@ -110,12 +114,6 @@ def model_predict(df_specific_newspapers):
     return df_specific_newspapers
 
 #app's Layout
-#button will get clicked and it will scrap
-# df3= scrap_theguardian()
-# df1= scrap_the_hindu()
-# df2= scrap_theasianage()
-# df4= scrap_themint()
-# df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
 app.layout= dbc.Container([
     html.Br(),
     dbc.Row(
@@ -150,13 +148,7 @@ app.layout= dbc.Container([
             multi=True,
             style={'backgroud-color':'#c5e0f0','width': '600px','offset':3})
                                                
-        ]),
-        dbc.Col([
-            
-                dbc.Button("Scrap latest News", outline=True, color="primary", className="mr-1")
-           
-            
-            ])
+        ])
         ]
         ),
     html.Br(),

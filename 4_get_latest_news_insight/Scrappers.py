@@ -5,7 +5,10 @@ Created on Fri Oct 16 22:52:43 2020
 @author: HP
 """
 import requests
-from bs4 import BeautifulSoup
+import bs4
+BeautifulSoup = bs4.BeautifulSoup
+
+# from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
 import time
@@ -39,9 +42,9 @@ def scrap_the_hindu():
     news=[]
     for i in range(len(all_stories)):
         for j in range(len(all_stories[i])):
+            link= all_stories[i].find_all('a')[j]['href']
             if (('in' in link) and  ('pictures' in link)):
                 continue
-            link= all_stories[i].find_all('a')[j]['href']
             links.append(link)
             titles.append(all_stories[i].find_all('a')[j].text)
 
@@ -60,7 +63,7 @@ def scrap_the_hindu():
     df= pd.DataFrame({'links':links,'title':titles,'news':news})
     return df
 
-
+scrap_the_hindu()
 def scrap_theasianage():
     url='http://www.asianage.com/'
     r1= requests.get(url)
