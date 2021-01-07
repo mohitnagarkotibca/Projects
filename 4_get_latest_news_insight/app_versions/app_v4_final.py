@@ -1,24 +1,29 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan  6 08:30:57 2021
+Created on Mon Oct  5 05:41:44 2020
 
 @author: HP
 """
 
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Oct  2 02:07:08 2020
+
+@author: HP
+"""
 import pickle
 import pandas as pd
 import nltk
 import os
-from nltk.corpus import stopwords
-from nltk.tokenize import punkt
-from nltk.corpus.reader import wordnet
-from nltk.stem import WordNetLemmatizer
+# from nltk.corpus import stopwords
+# from nltk.tokenize import punkt
+# from nltk.corpus.reader import wordnet
+# from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 import requests
 from bs4 import BeautifulSoup
 import numpy as np
 import dash
-import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
@@ -38,7 +43,7 @@ import numpy as np
 import pandas as pd
 import time
 import re
-import yake
+
 from Scrappers import scrap_the_hindu,scrap_theasianage,scrap_theguardian,scrap_themint
 
 nlp=spacy.load('en_core_web_md')
@@ -54,60 +59,19 @@ tf= pd.read_pickle('Models/tfidf.pickle')
 # df2= scrap_theasianage()
 # df4= scrap_themint()
 df3= pd.read_csv('data/theguardian.csv')
-df3['newspaper']= 'theguardian'
 df1= pd.read_csv('data/thehindu.csv')
-df1['newspaper']= 'thehindu'
 df2= pd.read_csv('data/theasianage.csv')
-df2['newspaper']= 'theasianage'
 df4= pd.read_csv('data/themint.csv')
-df4['newspaper']= 'themint'
-df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
-def clean_df(df):
-    def clean(df):
-        df['news_punctuation_cleaned']= df['news'].str.replace('\n','')
-        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r"\'s","")
-        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r"[^A-Za-z0-9\s-]",'')
-        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r"[0-9]+(['a-z']+)?",' ')
-        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r'\s?(-+)\s',' ')
-        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r'\s\s','')
-        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r'-\w[-]\w+','')
-        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r'-',' ')
-        df['title_punctuation_cleaned']= df['title'].str.replace('\n+',' ')
-        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r"\'s","")
-        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r"[^A-Za-z0-9\s-]",'')
-        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r"[0-9]+(['a-z']+)?",' ')
-        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r'\s?(-+)\s',' ')
-        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r'\s\s','')
-        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r'-\w[-]\w+','')
-        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r'-',' ')
-        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace('1hr\s','')
-        return df
-    df2_feature= clean(df)
-    def lemmatize(df):
-        li=[]
-        for doc in nlp.pipe(df['news_punctuation_cleaned'],disable=['tagger','parser','ner','textcat'],batch_size=4):
-            li.append(' '.join([token.lemma_ for token in doc if token.lemma_ not in stop_words] ))
-        df['lemma_cleaned_news']= li
-        return df
-    df3_feature= lemmatize(df2_feature)
-    def convert_to_lower(df):
-        df['news_lower_case']= df['lemma_cleaned_news'].apply(lambda x: x.lower())
-        return df
-    df4_feature= convert_to_lower(df3_feature)
-    return df4_feature
-df4_cleaned= clean_df(df)
-#-----------------------------------------
-dic={}
-for line in df4_cleaned['news_punctuation_cleaned']:
-    for word in line.split():
-        if word in dic.keys():
-            dic[word]= dic[word]+1
-        else:
-            dic[word]= 1
 
-#-----------------------------------------
+df= pd.concat([df1,df2,df3,df4],axis=0)
 
-app= dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+colors = {
+    'background': '#7ab472',
+    'text': '#fad0bb',
+    'header_table': '#9cd49e'
+}
+
 markdown_text1 = '''
 
 This application gathers the latest news from the newspapers **The Hindu**, **The Asian Age**,**'Hindustan Times'** and **The Mint**, predicts their category between **Politics**, **Business**, **Entertainment**, **Sport**, **Tech** and **Other** and then shows a graphic summary.
@@ -116,39 +80,42 @@ The news categories are predicted with a Support Vector Machine model.
 
 Please enter which newspapers would you like to scrape news off and the graphs will be loaded **Automatically** :
 
+'''
+markdown_text2 = '''
+
 The scraped news are converted into a numeric feature vector with TF-IDF vectorization. Then, a Support Vector Classifier is applied to predict each category.
 
 '''
 
-def model_predict(df_specific_newspapers):
-    feature_vector= tf.transform(df_specific_newspapers['news_lower_case'])
-    predictions= model.predict(feature_vector)
-    df_specific_newspapers['category']= predictions
-    return df_specific_newspapers
+app.layout = html.Div(style={'color':'black','backgroundColor':colors['background']}, children=[
+    
+    # Title
+    html.U(html.B(
+    html.H1(children='News Classification App',
+            style={
+                'textAlign': 'center',
+                'padding': '20px',
+                'backgroundColor':'#27ae60'
+            },
+            className='banner',
+           ))),
 
-#app's Layout
-app.layout= dbc.Container([
-    html.Br(),
-    dbc.Row(
-        [
-            dbc.Col([ html.H1('Latest News Insight')],
-                    style={'background-color':'#f7fcff','text-align':'center'},
-                    width={'size':12}
-                    )
-        ]        
-        ),
-    html.Br(),
-    dbc.Row(
-            [
-            dbc.Col([dcc.Markdown(markdown_text1)],
-                    style={'color':'#ffffff'})
-            #printing nouns and adjective
-            ]
-        ),
-    dbc.Row(
-        [
-        dbc.Col([
-            dcc.Dropdown(           
+    # Sub-title Left
+    html.Div([
+        dcc.Markdown(children=markdown_text1)],
+        style={'width': '49%', 'display': 'inline-block'}),
+    
+    # Sub-title Right
+    html.Div([
+        dcc.Markdown(children=markdown_text2)],
+        style={'width': '49%', 'float': 'right', 'display': 'inline-block'}),
+
+    # Space between text and dropdown
+    html.H1(id='space', children=' '),
+
+    # Dropdown
+    html.Div([
+        dcc.Dropdown(           
             options=[
                 {'label': 'The hindu', 'value': 'thehindu'},
                 {'label': 'the guardian', 'value': 'theguardian'},
@@ -156,59 +123,99 @@ app.layout= dbc.Container([
                 {'label': 'The Mint', 'value': 'themint'}
                 
             ],
-            id='Dropdown_news',
-            className= 'dropdown-header',
-            placeholder= 'Select News Papers',
             value=['thehindu','theguardian','theasianage','themint'],
             multi=True,
-            style={'backgroud-color':'#c5e0f0','height': '30px', 'width': '500px'})
-        ],width={'order':1,'offset':3})
-        ]),
-    html.Br(),
-    dbc.Row([
-        dbc.Col([
-            dcc.Graph(id='graph1',figure= {})
-            ],style={'size':4,'backgroud-color':'#c5e0f0'}),
-        dbc.Col([
-            dcc.Graph(id='graph2',figure= {})
-            ],style={'size':4,'backgroud-color':'#c5e0f0'})
-        ]),
-    html.Br(),
-    dbc.Row([
-    dbc.Col([
-        dcc.Dropdown(id='dropdown1',
-                  options=[
-                      {'label':'politics','value':'politics'},
-                      {'label':'business','value':'business'},
-                      {'label':'sport','value':'sport'},
-                      {'label':'tech','value':'tech'},
-                      {'label':'entertainment','value':'entertainment'}
-                      ],
-                  value='politics',
-                  multi=False,
-                  className='text-left',
-                  style={'height': '30px', 'width': '500px','backgroud-color':'#c5e0f0'})
-                  ],width={'order':1,'offset':3})  
+            id='checklist')],
+        style={'width': '95%', 'display': 'inline-block', 'float': 'left'}),
+        
+
+    # Graph1
+    html.Div([
+        dcc.Graph(id='graph1',figure= {})],
+        style={'width': '49%', 'display': 'inline-block'}),
     
-    ]),
-    html.Br(),
-    dbc.Row([
-            
-        dbc.Col([
-            
-            dcc.Loading(children= [html.Div(id='word_cloud1',children=[])],
-                    style={'size':7})
+    # Graph2
+    html.Div([
+        dcc.Graph(id='graph2',figure={})],
+        style={'width': '49%', 'float': 'right', 'display': 'inline-block'}),
+    
+    # Table title
+    html.Div(id='table-title', children=' Select a category to display latest news :'),
+
+    # Space
+    html.H1(id='space2', children=' '),
+    
+    html.Div(id='intermediate-value', style={'display': 'none'}),
+    html.H1(id='space3', children=' '),
+    
+    dcc.Dropdown(id='dropdown1',
+                      options=[
+                          {'label':'politics','value':'politics'},
+                          {'label':'business','value':'business'},
+                          {'label':'sport','value':'sport'},
+                          {'label':'tech','value':'tech'},
+                          {'label':'entertainment','value':'entertainment'}
+                          ],
+                      value='politics',
+                      multi=False
+                      )
+        ,
+        html.H1(id='space4', children=' '),
+        dbc.Spinner(
+        html.Div(id='word_cloud1',children=[
+        
+        ]),
+        type='grow',
+        color='success'
+        ),
+        html.H1(id='space5', children=' ')
+
+])
+def clean_df(df):
+    def clean(df):
+        df['news_punctuation_cleaned']= df['news'].str.replace('\n+',' ')
+        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r"\'s","")
+        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r"[^A-Za-z0-9\s-]",'')
+        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r"[0-9]+(['a-z']+)?",' ')
+        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r'\s?(-+)\s',' ')
+        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r'\s\s','')
+        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r'-\w[-]\w+','')
+        df['news_punctuation_cleaned']= df['news_punctuation_cleaned'].str.replace(r'-',' ')
+        
+        df['title_punctuation_cleaned']= df['title'].str.replace('\n+',' ')
+        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r"\'s","")
+        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r"[^A-Za-z0-9\s-]",'')
+        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r"[0-9]+(['a-z']+)?",' ')
+        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r'\s?(-+)\s',' ')
+        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r'\s\s','')
+        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r'-\w[-]\w+','')
+        df['title_punctuation_cleaned']= df['title_punctuation_cleaned'].str.replace(r'-',' ')
+        return df
+
+    df2_feature=clean(df)
+
+    def lemmatize(df):
+        li=[]
+        for doc in nlp.pipe(df['news_punctuation_cleaned'],disable=['tagger','parser','ner','textcat'],batch_size=4):
+            li.append(' '.join([token.lemma_ for token in doc if token.lemma_ not in stop_words] ))
+        df['lemma_cleaned_news']= li
+        return df
+    df3_feature= lemmatize(df2_feature)
+    
+    def convert_to_lower(df):
+        df['news_lower_case']= df['lemma_cleaned_news'].apply(lambda x: x.lower())
+        return df
+    
+    df4_feature= convert_to_lower(df3_feature)
+    return df4_feature
+
+df4_cleaned= clean_df(df)
 
 
-        ])
-    ])
-              
-    ],style={'background-color':'#042b41','height': '100%', 'width': '90%'},className='text-monospace',fluid=True
-    )
 
 @app.callback(
     Output(component_id='graph1',component_property= 'figure'),
-    [Input(component_id='Dropdown_news',component_property='value')]
+    [Input(component_id='checklist',component_property='value')]
     )
 def update_graph1(values):
     newspaper_list=[]
@@ -219,6 +226,11 @@ def update_graph1(values):
         z= [newspaper_list.append(newspaper) for newspaper in news_count.index]
         z1= [counts.append(count) for count in news_count.values]
     
+    
+    # fig= px.pie(
+    #     values= news_count.values,
+    #     names= news_count.index
+    # )
     fig= go.Figure(
                     go.Pie(
                     values= counts,
@@ -231,9 +243,16 @@ def update_graph1(values):
     )
     return fig
 
+def model_predict(df_specific_newspapers):
+    feature_vector= tf.transform(df_specific_newspapers['news_lower_case'])
+    predictions= model.predict(feature_vector)
+    df_specific_newspapers['category']= predictions
+    return df_specific_newspapers
+    
+
 @app.callback(
     Output(component_id='graph2',component_property='figure'),
-    [Input(component_id='Dropdown_news',component_property='value')]
+    [Input(component_id='checklist',component_property='value')]
     )
 def update_graph2(values):
     dfs=[]
@@ -290,7 +309,7 @@ def make_wordclouds(value):
     df_g= df_specific_newspapers.groupby('category').get_group(value)
     index=df_g.index
     for num in range(len(df_g)):
-        news_titles= df_g['title_punctuation_cleaned'].values[num]
+        news_titles= df_g['title'].values[num]
         WordCloud(width=400,height=200,contour_color='white').generate(news_titles).to_file('tmp_images/image_{}.png'.format(num))
 
     images= os.listdir('tmp_images/')
@@ -326,4 +345,6 @@ def make_wordclouds(value):
     
     return  figs
 
-app.run_server(debug=False)
+
+
+app.run_server(debug= True)
