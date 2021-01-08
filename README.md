@@ -7,3 +7,4 @@
 ## Disaster New classification
 [Disaster news classification](https://github.com/mohitnagarkotibca/Projects/tree/master/Disaster_news_classfier)
 ![][https://miro.medium.com/max/700/0*z9jqZsQ7JSTZGSZz.jpg?raw=true]
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
