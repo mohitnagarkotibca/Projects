@@ -6,4 +6,4 @@
 
 ## Disaster New classification
 [Disaster news classification](https://github.com/mohitnagarkotibca/Projects/tree/master/Disaster_news_classfier)
-![](https://miro.medium.com/max/700/0*z9jqZsQ7JSTZGSZz.jpg)
+![](https://miro.medium.com/max/700/0*z9jqZsQ7JSTZGSZz.jpg?raw=true)
