@@ -6,8 +6,7 @@ So , The problem is get the Reader to read a news from authentic source.
 Problem Sollution:
 I have tried to built an Interatice dashboard, where user can read news by choosing a particular category. For Classification purpose i used Machine learning algorithms and NLP.
 It is a Dashboard which can provide quick insights about a news from different sources. SO that readers who don't want to read the traditional newspaper can get a quick grasp of the news and if the news could grasp their attention, they can read it further and hence get informed about the issue.
-Beacuse as mentioned in this research that people usually procastinate big complex thing because they dont get the "FEEL" to even start it initially.
-https://www.washingtonpost.com/news/wonk/wp/2016/04/27/why-you-cant-help-read-this-article-about-procrastination-instead-of-doing-your-job/).
+Beacuse as mentioned in this [research](https://www.washingtonpost.com/news/wonk/wp/2016/04/27/why-you-cant-help-read-this-article-about-procrastination-instead-of-doing-your-job/) that people usually procastinate big complex thing because they dont get the "FEEL" to even start it initially.
 
 so , By keeping the above research in mind, i had the following problem solving approach.
 
@@ -17,7 +16,7 @@ The initial task is to get the reader to gain some information about the topic, 
 
 This Project scrap and visualize latest news in real time from different realiable newspapers like THe Guardian, The Hindu, The Mind, The Asian Age.
 It uses following libraries for the specified purpose:
-1. Bs4, Beautiful Soup, Regex : For Data Mining and preparation
-2. pandas: For Data cleaning, Data preparatation and Data Modeling
-3. Matplotlib, Seaborn, Plotly and Dash: For Visualization and for builting a dashboard
-4. Heroku :for Deployment
+* Bs4, Beautiful Soup, Regex : For Data Mining and preparation
+* pandas,Spacy: For Data cleaning, Data preparatation and Data Modeling
+* Matplotlib, Seaborn, Plotly and Dash: For Visualization and for builting a dashboard
+* Heroku :for Deployment
