@@ -1,4 +1,4 @@
-<img src= 'https://i2.wp.com/educate.itsfacile.com/wp-content/uploads/2018/06/Why-We-should-not-read-newspapers.jpg?fit=1280%2C960' width= 500 height=300  vertical-align= 'middle'>
+<img src= 'https://i2.wp.com/educate.itsfacile.com/wp-content/uploads/2018/06/Why-We-should-not-read-newspapers.jpg?fit=1280%2C960' width= 500 height=300  vertical-align= 'center'>
 
 ### Problem Description: ###
 In day to day life, Newspaper needs lot's of complex vocabulary to understand basic issues of the world. So lot's of reader just try to avoid the reading leading to the spread of Fake news and hate Mongering by taking half cooked news from various social media platforms.
@@ -33,7 +33,7 @@ This Project scrap and visualize latest news in real time from different realiab
 <img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/3.png' width= 400 height=200 align= 'middle'>
 
 #### Link can be opened to original articles ####
-<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/after%20click.png' width= 400 height=200 align= 'middle'>
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/after%20click.png' width= 400 height=200 align= 'centre'>
 
 #### Screan while scrapping ####
 <img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/scrapping.png' width= 400 height=200 align= 'middle'>
