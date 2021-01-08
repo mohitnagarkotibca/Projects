@@ -37,28 +37,19 @@ model= pd.read_pickle('Models/best_rfc.pickle')
 tf= pd.read_pickle('Models/tfidf.pickle')
 
 
-df3= scrap_theguardian()
-# df3.to_csv('data/theguardian.csv')
-df1= scrap_the_hindu()
-# df1.to_csv('data/thehindu.csv')
-df2= scrap_theasianage()
-# df2.to_csv('data/theasianage.csv')
-df4= scrap_themint()
-# df4.to_csv('data/themint.csv')
-df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
+# df3= scrap_theguardian()
+# # df3.to_csv('data/theguardian.csv')
+# df1= scrap_the_hindu()
+# # df1.to_csv('data/thehindu.csv')
+# df2= scrap_theasianage()
+# # df2.to_csv('data/theasianage.csv')
+# df4= scrap_themint()
+# # df4.to_csv('data/themint.csv')
+# df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
 
 
 
-# df3= pd.read_csv('data/theguardian.csv')
-df3['newspaper']= 'theguardian'
-# df1= pd.read_csv('data/thehindu.csv')
-df1['newspaper']= 'thehindu'
-# df2= pd.read_csv('data/theasianage.csv')
-df2['newspaper']= 'theasianage'
-# df4= pd.read_csv('data/themint.csv')
-df4['newspaper']= 'themint'
 
-df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
 def clean_df(df):
     def clean(df):
         df['news_punctuation_cleaned']= df['news'].str.replace('\n','')
@@ -92,17 +83,17 @@ def clean_df(df):
         return df
     df4_feature= convert_to_lower(df3_feature)
     return df4_feature
-df4_cleaned= clean_df(df)
 
 app= dash.Dash(__name__)
 markdown_text1 = '''
 
-This application gathers the latest news from the newspapers **The Hindu**, **The Asian Age**,**'Hindustan Times'** and **The Mint**, predicts their category between **Politics**, **Business**, **Entertainment**, **Sport**, **Tech** and **Other** and then shows a graphic summary.
+This application gathers latest news from **The Hindu**, **The Asian Age**,**'Hindustan Times'** and **The Mint** newspaper, predicts their category between **Politics**, **Business**, **Entertainment**, **Sport**, **Tech** and **Other** and then shows a graphic summary.
 
 The news categories are predicted with a Support Vector Machine model.
 
-Please enter which newspapers would you like to scrape news off and the graphs will be loaded **Automatically** :
-
+Please enter which newspapers would you like to scrape news off and the graphs will be loaded **Automatically**.
+Here, The scapping is done on real time so The speed of the visualization will be directly related to the speed of your internet.
+In an Ideal scenaria the visualization are supposed to take **13 seconds** to load.
 The scraped news are converted into a numeric feature vector with TF-IDF vectorization. Then, a Support Vector Classifier is applied to predict each category.
 
 '''
@@ -113,7 +104,7 @@ def model_predict(df_specific_newspapers):
     df_specific_newspapers['category']= predictions
     return df_specific_newspapers
 
-#app's Layout
+#-------------------------------------------------------------------------app's Layout
 app.layout= dbc.Container([
     html.Br(),
     dbc.Row(
@@ -148,16 +139,22 @@ app.layout= dbc.Container([
             multi=True,
             style={'backgroud-color':'#c5e0f0','width': '600px','offset':3})
                                                
-        ])
+        ]),
+        dbc.Col([dbc.Button('Scrap Latest News',id='submit', color="success", className="mr-1")])
         ]
         ),
     html.Br(),
     dbc.Row([
         dbc.Col([
-            dcc.Graph(id='graph1',figure= {})
-            ],style={'size':4,'backgroud-color':'#c5e0f0'}),
+            dcc.Loading(
+            dcc.Graph(id='graph1',figure= {}),
+                    style={'size':7})
+            ],style={'size':4,'backgroud-color':'#c5e0f0'})
+        ,
         dbc.Col([
-            dcc.Graph(id='graph2',figure= {})
+            dcc.Loading(
+            dcc.Graph(id='graph2',figure= {}),
+            style={'size':7})
             ],style={'size':4,'backgroud-color':'#c5e0f0'})
         ]),
     html.Br(),
@@ -180,138 +177,167 @@ app.layout= dbc.Container([
     ]),
     html.Br(),
     dbc.Row([
-            
+        dcc.Loading(
         dbc.Col([
             
             dcc.Loading(children= [html.Div(id='word_cloud1',children=[])],
                     style={'size':7})
 
 
-        ])
+        ]),
+        style={'size':25},type='cube')
     ])
               
     ],style={'background-color':'#042b41','height': '100%', 'width': '90%'},className='text-monospace',fluid=True
     )
 
-
+#-------------------------------------------------------------------------callback
 @app.callback(
-    Output(component_id='graph1',component_property= 'figure'),
-    [Input(component_id='Dropdown_news',component_property='value')]
+    [Output(component_id='graph1',component_property= 'figure'),
+      Output(component_id='graph2',component_property='figure'),
+      Output(component_id='word_cloud1',component_property='children')
+      ],
+      [Input(component_id='submit',component_property='n_clicks'),
+      Input(component_id='Dropdown_news',component_property='value'),
+      Input(component_id='dropdown1',component_property='value')
+      ]
     )
-def update_graph1(values):
-    newspaper_list=[]
-    counts=[]
-    for newspaper in values:
-        df4_g= df4_cleaned.groupby('newspaper').get_group(newspaper.strip())
-        news_count= df4_g['newspaper'].value_counts()
-        z= [newspaper_list.append(newspaper) for newspaper in news_count.index]
-        z1= [counts.append(count) for count in news_count.values]
-    
-    fig= go.Figure(
-                    go.Pie(
-                    values= counts,
-                    labels= newspaper_list,
-                    textinfo='label+percent'
-                    )
-    )
-    fig.update_layout(
-        {'title':' Article contribution from different newspaper :'}
-    )
-    return fig
-
-@app.callback(
-    Output(component_id='graph2',component_property='figure'),
-    [Input(component_id='Dropdown_news',component_property='value')]
-    )
-def update_graph2(values):
-    dfs=[]
-    for newspaper in values:
-        dfs.append(df.query(f'newspaper== "{newspaper.strip()}"'))
-    df_specific_newspapers= pd.concat(dfs,axis=0)
-    
-    df_specific_newspapers= model_predict(df_specific_newspapers)
-
-
-    #confuzed between df4_cleaned and df_specific_newspapers
-    d_count= df_specific_newspapers['category'].value_counts()
-
-    fig= go.Figure(
-        go.Bar(
-        x= d_count.index,
-        y= d_count.values,
-        marker_color= '#ecfaea'
-        )
-    )
-    fig.update_layout(
-        plot_bgcolor="#7ab472",
-        autosize=False
-    )
-    for i in range(len(d_count)):
-        fig.add_annotation(
-        x= d_count.index[i],
-        y= d_count.values[i]+5,
-        text= '',
-        showarrow=False
-        )
-    for i in range(len(d_count)):
-        fig.add_annotation(
-        x= d_count.index[i],
-        y= d_count.values[i]+5,
-        text= str(d_count.values[i]),
-        showarrow= False
-        )
-    fig.update_layout(dict(
-    title=" Different category articles which are available",
-    xaxis_title="categories",
-    yaxis_title="number of articles",
-        ))
-    return fig
-
-@app.callback(
-    Output(component_id='word_cloud1',component_property='children'),
-    [ Input(component_id='dropdown1',component_property='value')]
-    )
-
-def make_wordclouds(value):
-    df_specific_newspapers= model_predict(df4_cleaned)
-    
-    df_g= df_specific_newspapers.groupby('category').get_group(value)
-    index=df_g.index
-    for num in range(len(df_g)):
-        news_titles= df_g['title_punctuation_cleaned'].values[num]
-        WordCloud(width=400,height=200,contour_color='white').generate(news_titles).to_file('tmp_images/image_{}.png'.format(num))
-
-    images= os.listdir('tmp_images/')
-    
-    list_length= len(images)
-    names= [f'card_{num}' for num in range(list_length)]
-    
-    
-    li=[]
-    for i in range(list_length):
-        image_name=images[i]
-        image=base64.b64encode(open('tmp_images/{}'.format(image_name),'rb').read())    
+def update_everything(n_clicks,d_value,small_d):
+    def update_graph1(values):
+        newspaper_list=[]
+        counts=[]
+        for newspaper in values:
+            df4_g= df4_cleaned.groupby('newspaper').get_group(newspaper.strip())
+            news_count= df4_g['newspaper'].value_counts()
+            z= [newspaper_list.append(newspaper) for newspaper in news_count.index]
+            z1= [counts.append(count) for count in news_count.values]
         
-        names[i] = dbc.Card([
-            dbc.CardImg(src='data:image/png;base64,{}'.format(image.decode()),top=True, bottom=False,alt='Not working'),
-            dbc.CardBody([
-                html.H6(f"{df_g['title'].loc[index[i]]}",className='card-title'),
-                
-                dbc.Button('Read More',href=f"{df_g['links'].loc[index[i]]}",target='_blank',color='success')
-
-                ]
-                
-                
-                )],outline=True,style={"width": "15rem"}
-            )
-        li.append(names[i])
-    figs= dbc.Row(
-            li,
-            justify='around',
-            className="h-35"
+        fig= go.Figure(
+                        go.Pie(
+                        values= counts,
+                        labels= newspaper_list,
+                        textinfo='label+percent'
+                        )
         )
-    z=[os.remove(f'tmp_images/{im}') for im in images]
+        fig.update_layout(
+            {'title':' Article contribution from different newspaper :'}
+        )
+        return fig
+    def update_graph2(values):
+        dfs=[]
+        for newspaper in values:
+            dfs.append(df.query(f'newspaper== "{newspaper.strip()}"'))
+        df_specific_newspapers= pd.concat(dfs,axis=0)
+        
+        df_specific_newspapers= model_predict(df_specific_newspapers)
     
-    return  figs
+        d_count= df_specific_newspapers['category'].value_counts()
+    
+        fig= go.Figure(
+            go.Bar(
+            x= d_count.index,
+            y= d_count.values,
+            marker_color= '#ecfaea'
+            )
+        )
+        fig.update_layout(
+            plot_bgcolor="#7ab472",
+            autosize=False
+        )
+        for i in range(len(d_count)):
+            fig.add_annotation(
+            x= d_count.index[i],
+            y= d_count.values[i]+5,
+            text= '',
+            showarrow=False
+            )
+        for i in range(len(d_count)):
+            fig.add_annotation(
+            x= d_count.index[i],
+            y= d_count.values[i]+5,
+            text= str(d_count.values[i]),
+            showarrow= False
+            )
+        fig.update_layout(dict(
+        title=" Different category articles which are available",
+        xaxis_title="categories",
+        yaxis_title="number of articles",
+            ))
+        return fig
+    def make_wordclouds(value):
+        df_specific_newspapers= model_predict(df4_cleaned)
+        
+        df_g= df_specific_newspapers.groupby('category').get_group(value)
+        index=df_g.index
+        for num in range(len(df_g)):
+            news_titles= df_g['title_punctuation_cleaned'].values[num]
+            WordCloud(width=400,height=200,contour_color='white').generate(news_titles).to_file('tmp_images/image_{}.png'.format(num))
+    
+        images= os.listdir('tmp_images/')
+        
+        list_length= len(images)
+        names= [f'card_{num}' for num in range(list_length)]
+        
+        
+        li=[]
+        for i in range(list_length):
+            image_name=images[i]
+            image=base64.b64encode(open('tmp_images/{}'.format(image_name),'rb').read())    
+            
+            names[i] = dbc.Card([
+                dbc.CardImg(src='data:image/png;base64,{}'.format(image.decode()),top=True, bottom=False,alt='Not working'),
+                dbc.CardBody([
+                    html.H6(f"{df_g['title'].loc[index[i]]}",className='card-title'),
+                    
+                    dbc.Button('Read More',href=f"{df_g['links'].loc[index[i]]}",target='_blank',color='success')
+    
+                    ]
+                    
+                    
+                    )],outline=True,style={"width": "15rem"}
+                )
+            li.append(names[i])
+        figs= dbc.Row(
+                li,
+                justify='around',
+                className="h-35"
+            )
+        z=[os.remove(f'tmp_images/{im}') for im in images]
+        
+        return  figs
+    
+    if (n_clicks != None) and (n_clicks == 1):
+        df3= scrap_theguardian()
+        df3['newspaper']= 'theguardian'
+        df1= scrap_the_hindu()
+        df1['newspaper']= 'thehindu'
+        df2= scrap_theasianage()
+        df2['newspaper']= 'theasianage'
+        df4= scrap_themint()
+        df4['newspaper']= 'themint'
+        df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
+        df.to_csv('Models/tmp_news.csv')
+    else:
+        if (n_clicks == None):
+            df3= pd.read_csv('Models/theguardian.csv')
+            df3['newspaper']= 'theguardian'
+            df1= pd.read_csv('Models/thehindu.csv')
+            df1['newspaper']= 'thehindu'
+            df2= pd.read_csv('Models/theasianage.csv')
+            df2['newspaper']= 'theasianage'
+            df4= pd.read_csv('Models/themint.csv')
+            df4['newspaper']= 'themint'
+            df= pd.concat([df1,df2,df3,df4],axis=0).reset_index(drop=True)
+            df.to_csv('Models/tmp_news.csv')
+    df= pd.read_csv('Models/tmp_news.csv')
+    df4_cleaned= clean_df(df)        
+    fig1= update_graph1(d_value)
+    fig2= update_graph2(d_value)
+    fig3= make_wordclouds(small_d)
+    return fig1,fig2,fig3
+        
 
+
+
+#-------------------------------------------------------------------------end
 app.run_server(debug=False)

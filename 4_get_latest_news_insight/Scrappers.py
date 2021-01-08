@@ -45,15 +45,16 @@ def scrap_the_hindu():
             link= all_stories[i].find_all('a')[j]['href']
             if (('in' in link) and  ('pictures' in link)):
                 continue
+            if 'updates' in link:
+                continue
+
             links.append(link)
             titles.append(all_stories[i].find_all('a')[j].text)
-
             article = requests.get(link)
             article_content = article.content
             soup_article = BeautifulSoup(article_content, 'html.parser')
             body = soup_article.find_all('div', class_='paywall')
             content = body[0].find_all('p')
-
             paragraph=[]
             for x in range(0,len(content)):
                 para= content[x].get_text()
@@ -63,7 +64,6 @@ def scrap_the_hindu():
     df= pd.DataFrame({'links':links,'title':titles,'news':news})
     return df
 
-scrap_the_hindu()
 def scrap_theasianage():
     url='http://www.asianage.com/'
     r1= requests.get(url)
