@@ -1,4 +1,4 @@
-[](https://i2.wp.com/educate.itsfacile.com/wp-content/uploads/2018/06/Why-We-should-not-read-newspapers.jpg?fit=1280%2C960)
+![](https://i2.wp.com/educate.itsfacile.com/wp-content/uploads/2018/06/Why-We-should-not-read-newspapers.jpg?fit=1280%2C960)
 
 ###Problem Description:###
 In day to day life, Newspaper needs lot's of complex vocabulary to understand basic issues of the world. So lot's of reader just try to avoid the reading leading to the spread of Fake news and hate Mongering by taking half cooked news from various social media platforms.
