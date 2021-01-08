@@ -23,16 +23,14 @@ This Project scrap and visualize latest news in real time from different realiab
 * Heroku :for Deployment
 
 ## Screens of dashboard:
-#### Overview
-<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png'>
-#### A
-<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/2.png'>
-#### A
-<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/3.png'>
-#### A
-<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/after%20click.png'>
-#### A
-<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/instant_load.png'>
+#### Overview of the dashboard
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png' width= 400 height=200>
+#### news from particular category
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/2.png' width= 400 height=200>
+#### Contribution from different newspapers
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/3.png' width= 400 height=200>
+#### Link can be opened to original articles
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/after%20click.png' width= 400 height=200>
 #### Screan while scrapping
-<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/scrapping.png'>
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/scrapping.png' width= 400 height=200>
 
