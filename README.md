@@ -1,9 +1,9 @@
 # Projects:
 
 ## [News Insight](https://github.com/mohitnagarkotibca/Projects/tree/master/News_Insight)
-
-<img src ='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true' width=400 height=200 href='https://github.com/mohitnagarkotibca/Projects/tree/master/News_Insight'>
-
+<a href='https://github.com/mohitnagarkotibca/Projects/tree/master/News_Insight'
+<img src ='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true' width=400 height=200 >
+>
 ## [Disaster news classification](https://github.com/mohitnagarkotibca/Projects/tree/master/Disaster_news_classfier)
 
 <img src ='https://miro.medium.com/max/700/0*z9jqZsQ7JSTZGSZz.jpg?raw=true' width=400 height=200>
