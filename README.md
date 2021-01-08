@@ -19,5 +19,5 @@
 
 ## [Youtube video classifier](https://github.com/mohitnagarkotibca/Projects/tree/master/youtube_video_classifier)
 <a href= 'https://github.com/mohitnagarkotibca/Projects/tree/master/youtube_video_classifier'>
-<img src ='https://www.tubefilter.com/wp-content/uploads/2019/02/taxonomy-of-youtube-videos-original-content-that-works-2.jpg' width=400 height=400>
+<img src ='https://www.tubefilter.com/wp-content/uploads/2019/02/taxonomy-of-youtube-videos-original-content-that-works-2.jpg' width=400 height=200>
 </a>
