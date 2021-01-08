@@ -2,7 +2,7 @@
 
 ## [News Insight](https://github.com/mohitnagarkotibca/Projects/tree/master/News_Insight)
 
-<img src ='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true' width=400 height=200>
+<img src ='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true' width=400 height=200 href='https://github.com/mohitnagarkotibca/Projects/tree/master/News_Insight'>
 
 ## [Disaster news classification](https://github.com/mohitnagarkotibca/Projects/tree/master/Disaster_news_classfier)
 
