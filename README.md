@@ -2,7 +2,7 @@
 
 ## Project about News Insight
 [News Insight](https://github.com/mohitnagarkotibca/Projects/tree/master/News_Insight)
-![](https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true width="100" height="100")
+![](https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true width=100 height=100)
 <img src ='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true width="100" height="100"'>
 ## Disaster New classification
 [Disaster news classification](https://github.com/mohitnagarkotibca/Projects/tree/master/Disaster_news_classfier)
