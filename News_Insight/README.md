@@ -23,4 +23,16 @@ This Project scrap and visualize latest news in real time from different realiab
 * Heroku :for Deployment
 
 ## Screens of dashboard:
+#### Overview
 <img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png'>
+#### A
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/2.png'>
+#### A
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/3.png'>
+#### A
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/after%20click.png'>
+#### A
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/instant_load.png'>
+#### Screan while scrapping
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/scrapping.png'>
+
