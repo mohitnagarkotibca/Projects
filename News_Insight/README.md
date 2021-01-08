@@ -21,3 +21,6 @@ This Project scrap and visualize latest news in real time from different realiab
 * pandas,Spacy: For Data cleaning, Data preparatation and Data Modeling
 * Matplotlib, Seaborn, Plotly and Dash: For Visualization and for builting a dashboard
 * Heroku :for Deployment
+
+## Screens of dashboard:
+<img src='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png'>
