@@ -139,4 +139,5 @@ cython_debug/
 
 files/*
 data/*
+*.ipynb
 model_rf.pickle
