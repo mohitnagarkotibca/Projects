@@ -4,7 +4,13 @@
 <a href='https://github.com/mohitnagarkotibca/Projects/tree/master/News_Insight'>
 <img src ='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true' width=400 height=200 >
 </a>
-  
+
+## [Crop Damage Prediction](https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture)
+<a href='https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture'>
+<img src ='https://www.thebalancesmb.com/thmb/42NMK9_C6j3SYKDgyIs0FnLrLCw=/1773x1330/smart/filters:no_upscale()/pesticides-148173093-58a93a865f9b58a3c9abffca.jpg' width=400 height=200 >
+</a>
+
+
 ## [Disaster news classification](https://github.com/mohitnagarkotibca/Projects/tree/master/Disaster_news_classfier)
 
 <a href='https://github.com/mohitnagarkotibca/Projects/tree/master/Twitter_Sentiment_Analysis'>
