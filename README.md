@@ -7,7 +7,7 @@
 
 ## [Crop Damage Prediction](https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture)
 <a href='https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture'>
-<img src ='https://agritimes.co.in/assets/images/negligence-in-pesticide-management-increasing-farmers-deaths-in-maharashtra-says-cse-english.jpeg' width=400 height=200 >
+<img src ='https://agritimes.co.in/assets/images/negligence-in-pesticide-management-increasing-farmers-deaths-in-maharashtra-says-cse-english.jpeg' width=400 height=300 >
 </a>
 
 
