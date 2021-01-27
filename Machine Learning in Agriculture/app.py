@@ -15,7 +15,7 @@ def Home():
     return render_template('index.html')
 
 
-standard_to = StandardScaler()
+standard_to = StandardScaler()  
 @app.route("/predict", methods=['POST'])
 def predict():
     if request.method == 'POST':
@@ -56,16 +56,16 @@ def predict():
         prediction=model.predict([[Estimated_insects,Crop_type,Soil,Pesticides_usage,Doses_per_week,no_weeks_used,no_weeks_quit,Season]])
         
         if prediction == 0:
-            output="Crop will be alive"
+            output=" Model is 82% sure that: Crop will be alive"
         elif prediction == 1:
-            output="Crop is likely to get spoiled"
+            output=" Model is 82% sure that: Crop is likely to get spoiled"
         else:
-            output = "Crop will get spoiled due to pesticides"
+            output = " Model is 82% sure that: Crop will get spoiled due to pesticides"
 
 
         return render_template('index.html', prediction_crop_damage='{}'.format(output))
 
 
 if __name__=="__main__":
-    app.run()
+    app.run(debug=True)
 # app.run(host='0.0.0.0',port=5000,debug=False,use_reloader=True)

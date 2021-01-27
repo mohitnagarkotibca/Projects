@@ -4,13 +4,14 @@
 	<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Crop Damage</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
 </head>
 <form action="{{url_for('predict')}}" method ="post">
-  <div class="wrapper">
-    <div class="title">
-      Crop Damage Prediction
+  <div class="wrapper">  
+<div class="title" style="font-size: 36px;line-height: 0.9;letter-spacing: 0.24em;font-weight: 600;font-style: normal;">
+      Crop Damage Predictor
     </div>
+  
     <div class="form">
        <div class="inputfield">
           <label>Estimated Insects Count </label>
@@ -70,12 +71,17 @@
             </select>
           </div>
        </div>
+      
       <div class="inputfield">
-        <input type="submit" value="Predict" class="btn">
-      </div>
+<input type="submit" value="Predict" class="btn" style="font-size: 28px;line-height: 1.9;letter-spacing: 0.192em;font-weight: 600;">      </div>
+      
      <br>
-        <div>
-            {{  prediction_crop_damage }}
+        
+        {{  prediction_crop_damage }}
+
+        
+        
+        
         </div>
     </div>
     </div>
