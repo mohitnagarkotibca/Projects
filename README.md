@@ -5,7 +5,7 @@
 <img src ='https://github.com/mohitnagarkotibca/Projects/blob/master/images/1.png?raw=true' width=400 height=200 >
 </a>
 
-##[Crop Damage Prediction](https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture)
+## [Crop Damage Prediction](https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture)
 <a href='https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture'>
 <img src ='https://www.safetyandhealthmagazine.com/ext/resources/images/news/agriculture/farm-pesticide.jpg?1554922227' width=400 height=200 >
 </a>
