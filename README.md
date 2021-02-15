@@ -7,7 +7,7 @@
 
 ## [Crop Damage Prediction](https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture)
 <a href='https://github.com/mohitnagarkotibca/Projects/tree/master/Machine%20Learning%20in%20Agriculture'>
-<img src ='https://www.thebalancesmb.com/thmb/42NMK9_C6j3SYKDgyIs0FnLrLCw=/1773x1330/smart/filters:no_upscale()/pesticides-148173093-58a93a865f9b58a3c9abffca.jpg' width=400 height=200 >
+<img src ='https://github.com/mohitnagarkotibca/Projects/blob/master/images/crops.png' width=400 height=200 >
 </a>
 
 
