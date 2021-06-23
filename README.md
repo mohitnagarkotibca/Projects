@@ -27,3 +27,9 @@
 <a href= 'https://github.com/mohitnagarkotibca/Projects/tree/master/youtube_video_classifier'>
 <img src ='https://www.tubefilter.com/wp-content/uploads/2019/02/taxonomy-of-youtube-videos-original-content-that-works-2.jpg' width=400 height=200>
 </a>
+
+
+## [Scientific calculator](https://github.com/mohitnagarkotibca/Projects/tree/master/scientific%20calculator)
+<a href= 'https://github.com/mohitnagarkotibca/Projects/tree/master/scientific%20calculator'>
+<img src ='https://raw.githubusercontent.com/mohitnagarkotibca/Projects/master/scientific%20calculator/imgs/calculator.png' width=400 height=600>
+</a>
