@@ -265,6 +265,11 @@ def update_everything(n_clicks,d_value,small_d):
             ))
         return fig
     def make_wordclouds(value):
+        try:
+            os.mkdir('tmp_images')
+        except  FileExistsError:
+            pass
+
         df_specific_newspapers= model_predict(df4_cleaned)
         
         df_g= df_specific_newspapers.groupby('category').get_group(value)
