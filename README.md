@@ -31,5 +31,5 @@
 
 ## [Scientific calculator](https://github.com/mohitnagarkotibca/Projects/tree/master/scientific%20calculator)
 <a href= 'https://github.com/mohitnagarkotibca/Projects/tree/master/scientific%20calculator'>
-<img src ='https://raw.githubusercontent.com/mohitnagarkotibca/Projects/master/scientific%20calculator/imgs/calculator.png' width=400 height=600>
+<img src ='https://raw.githubusercontent.com/mohitnagarkotibca/Projects/master/scientific%20calculator/imgs/calculator.png?token=ALJG5MUP3LBTG25KVXMQNBTA4Q7G2' width=400 height=600>
 </a>
