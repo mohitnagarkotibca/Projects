@@ -22,7 +22,9 @@ This Project scrap and visualize latest news in real time from different realiab
 * Bs4, Beautiful Soup, Regex : For Data Mining and preparation
 * pandas,Spacy: For Data cleaning, Data preparatation and Data Modeling
 * Matplotlib, Seaborn, Plotly and Dash: For Visualization and for builting a dashboard
-* Heroku :for Deployment
+
+
+### Run the program using main_app.py
 
 ## Screens of dashboard:
 #### Overview of the dashboard ####
