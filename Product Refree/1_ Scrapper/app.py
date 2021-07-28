@@ -105,7 +105,7 @@ class Scrapp:
         S_reviews=[]
         L_reviews=[]
                 
-        for i,item in enumerate(elements[:2]):    
+        for i,item in enumerate(elements[3:7]):    
             link=item.find_element_by_tag_name('a').get_attribute('href')
             print('-'*20,'\nA: ',self.driver.current_url)
             SR,LR= self.get_URL(link)
@@ -135,3 +135,4 @@ class Scrapp:
 
 SC= Scrapp(driver)
 df= SC.get_product_URL('Best Laptop under 40000')
+df.to_csv('1st_scrap.csv')
