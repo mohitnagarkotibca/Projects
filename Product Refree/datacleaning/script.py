@@ -1,3 +1,17 @@
+import spacy
+nlp= spacy.load('en_core_web_sm')
+import pandas as pd
+import numpy as np
+import re
+import ast
+import spacy
+from spacy import displacy
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+import matplotlib.pyplot as plt
+import seaborn as sns
+import streamlit as st
+import ast
+nlp= spacy.load('en_core_web_sm')
 def clean_dataset(df,long=False):
 # choose correct columns
     df= df[['Title','prices','Short reviews','Long Reviews']]
@@ -33,4 +47,4 @@ def clean_dataset(df,long=False):
         return main_df,long_texts
     else:
         return main_df
-x,y= clean_dataset(df,True)
+# x,y= clean_dataset(df,True)
